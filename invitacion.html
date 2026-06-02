@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Boda - K & L</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CONFIGURACIÓN DE COLORES DE LA TARJETA REAl */
+        :root {
+            --bg-paper: #f7f4ed; /* Color crema/hueso del papel */
+            --text-dark: #2c251e; /* Color café oscuro/carbón elegante */
+            --gold: #bfa15f; /* Dorado metálico de los detalles */
+            --gold-light: #dfd5be; /* Dorado suave para líneas */
+            --white: #ffffff;
+        }
+
+        * {
+            box-shadow: none;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #e6e1d6; /* Color de fondo exterior */
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 30px 15px;
+        }
+
+        /* CONTENEDOR PRINCIPAL ESTILO TARJETA FISICA */
+        .invitation-card {
+            background-color: var(--bg-paper);
+            max-width: 550px;
+            width: 100%;
+            padding: 50px 35px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+            border-radius: 2px;
+            text-align: center;
+            border: 1px solid var(--gold-light);
+            position: relative;
+        }
+
+        /* TEXTOS Y TIPOGRAFÍAS */
+        .top-quote {
+            font-style: italic;
+            font-size: 1.15rem;
+            line-height: 1.5;
+            color: #5a5045;
+            margin-bottom: 35px;
+            padding: 0 10px;
+        }
+
+        .divider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px 0;
+            color: var(--gold);
+            font-size: 0.9rem;
+            letter-spacing: 5px;
+        }
+        .divider::before, .divider::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 1px;
+            background-color: var(--gold-light);
+            margin: 0 15px;
+        }
+
+        .initials {
+            font-family: 'Cinzel', serif;
+            font-size: 2.4rem;
+            color: var(--gold);
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+        }
+
+        .names {
+            font-family: 'Cinzel', serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+            line-height: 1.4;
+            margin: 20px 0;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+        }
+        
+        .ampersand {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 2rem;
+            color: var(--gold);
+            display: block;
+            margin: 8px 0;
+        }
+
+        .blessing-title {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-top: 35px;
+            margin-bottom: 25px;
+            color: #5a5045;
+        }
+
+        /* DISTRIBUCIÓN DE PADRES (2 COLUMNAS) */
+        .parents-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 35px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .parents-column h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .parents-column p {
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+
+        .honor-text {
+            font-size: 1.2rem;
+            margin: 35px 0;
+            line-height: 1.5;
+            padding: 0 15px;
+        }
+
+        /* BLOQUE DE DATOS DEL EVENTO */
+        .event-details {
+            border-top: 1px solid var(--gold-light);
+            border-bottom: 1px solid var(--gold-light);
+            padding: 35px 0;
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .event-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .event-time {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .location-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+
+        .location-address {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-top: 6px;
+            color: #555;
+        }
+
+        /* SECCIÓN NUEVA: FORMULARIO RSVP */
+        .rsvp-section {
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid var(--gold-light);
+            padding: 30px 25px;
+            border-radius: 4px;
+            margin-top: 45px;
+            text-align: left;
+        }
+
+        .rsvp-section h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gold-light);
+            background-color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            border-radius: 2px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--gold);
+            color: var(--white);
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background 0.3s;
+            margin-top: 25px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-submit:hover {
+            background-color: #aa8b4c;
+        }
+
+        /* SECCIÓN NUEVA: GALERÍA DE FOTOS */
+        .gallery-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed var(--gold-light);
+        }
+
+        .gallery-section h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            padding-bottom: 100%; /* Proporción cuadrada perfecta 1:1 */
+            background-color: #dfdcd6;
+            overflow: hidden;
+            border-radius: 2px;
+            border: 1px solid var(--gold-light);
+        }
+
+        .gallery-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.06);
+        }
+
+        /* RESPONSIVE PARA MÓVILES */
+        @media (max-width: 480px) {
+            .parents-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .names {
+                font-size: 1.5rem;
+            }
+            .invitation-card {
+                padding: 35px 20px;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr; /* Una columna en celulares */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="invitation-card">
+    
+    <p class="top-quote">
+        "Hay historias que están escritas en el destino, la nuestra comenzó mucho antes de este día y hoy elegimos escribir juntos el mejor capítulo de nuestra vida."
+    </p>
+
+    <div class="initials">K & L</div>
+    
+    <div class="divider">✦</div>
+
+    <div class="names">
+        Kasanda Yaritza Mendoza Flores
+        <span class="ampersand">&</span>
+        Humberto Lehi Olivo Solis
+    </div>
+
+    <p class="blessing-title">Con la bendición de Dios y de nuestros padres</p>
+    
+    <div class="parents-container">
+        <div class="parents-column">
+            <h4>NOVIO</h4>
+            <p>Juan Humberto Olivo Moreno</p>
+            <p>Irma Angelita Solís García</p>
+        </div>
+        <div class="parents-column">
+            <h4>NOVIA</h4>
+            <p>Juan Jesús Mendoza Carreón</p>
+            <p>Maria de la luz Flores Maldonado</p>
+        </div>
+    </div>
+
+    <p class="honor-text">
+        Tenemos el honor de invitarle a acompañarnos en el inicio de nuestra vida juntos.
+    </p>
+
+    <div class="event-details">
+        <div class="section-title">CEREMONIA CIVIL</div>
+        <div class="event-date">31 DE OCTUBRE DE 2026</div>
+        <div class="event-time">18:00 HORAS</div>
+
+        <div class="section-title">RECEPCIÓN</div>
+        <div class="event-time">19:00 HORAS</div>
+
+        <div class="location-title" style="font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 3px; color: var(--gold); font-weight: 500; margin-bottom: 10px;">UBICACIÓN</div>
+        <div class="location-name">EL FUERTE DE SAN PEDRO DE GIGEDO</div>
+        <div class="location-address">VILLA UNIÓN, COAHUILA</div>
+        
+        <a href="https://maps.google.com/?q=El+Fuerte+de+San+Pedro+de+Gigedo+Villa+Union+Coahuila" target="_blank" class="btn-submit" style="width: auto; display: inline-block; padding: 10px 25px; font-size: 0.75rem; margin-top: 20px;">
+            Ver Mapa en Google Maps
+        </a>
+    </div>
+
+    <div class="rsvp-section">
+        <h3>Confirmar Asistencia</h3>
+        <form id="rsvpForm">
+            <div class="form-group">
+                <label for="guestName">Nombre Completo</label>
+                <input type="text" id="guestName" class="form-control" placeholder="Ej. Familia Pérez" required>
+            </div>
+            <div class="form-group">
+                <label for="attendance">¿Asistirás?</label>
+                <select id="attendance" class="form-control" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="Sí, con gusto asistiré">Sí, asistiré</option>
+                    <option value="Lo siento, no podré asistir">No podré asistir</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="passes">Boletos / Pases</label>
+                <select id="passes" class="form-control">
+                    <option value="1">1 Persona</option>
+                    <option value="2" selected>2 Personas</option>
+                    <option value="3">3 Personas</option>
+                    <option value="4">4 Personas</option>
+                    <option value="5">5 Personas</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-submit">Enviar por WhatsApp</button>
+        </form>
+    </div>
+
+    <div class="gallery-section">
+        <h3>Nuestra Galería</h3>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600" alt="Foto Novios 1">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600" alt="Foto Novios 2">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600" alt="Foto Novios 3">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=600" alt="Foto Novios 4">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Sistema dinámico para enviar los datos del formulario a tu WhatsApp
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // ⚠️ CAMBIA ESTE NÚMERO por tu WhatsApp real con código de país (Ej: 52 para México + tu número)
+        const tuNumeroWhatsApp = "8782496720"; 
+        
+        const nombre = document.getElementById('guestName').value;
+        const asistencia = document.getElementById('attendance').value;
+        const pases = document.getElementById('passes').value;
+        
+        // Estructura del mensaje de texto
+        const mensaje = `¡Hola! Confirmo mi asistencia para la Boda de K %26 L:%0A%0A*Nombre:* ${nombre}%0A*Asistencia:* ${asistencia}%0A*Pases solicitados:* ${pases}`;
+        
+        // Abre WhatsApp en una ventana nueva
+        window.open(`https://wa.me/${tuNumeroWhatsApp}?text=${mensaje}`, '_blank');
+    });
+</script>
+
+</body>
+</html>

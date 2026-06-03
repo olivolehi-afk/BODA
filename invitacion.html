@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* CONFIGURACIÓN DE COLORES DE LA TARJETA REAl */
+        /* CONFIGURACIÓN DE COLORES DE LA TARJETA REAL */
         :root {
             --bg-paper: #f7f4ed; /* Color crema/hueso del papel */
             --text-dark: #2c251e; /* Color café oscuro/carbón elegante */
@@ -47,6 +47,7 @@
             text-align: center;
             border: 1px solid var(--gold-light);
             position: relative;
+            margin-bottom: 60px; /* Espacio para que el reproductor flotante no tape el final */
         }
 
         /* TEXTOS Y TIPOGRAFÍAS */
@@ -192,7 +193,7 @@
             color: #555;
         }
 
-        /* SECCIÓN NUEVA: FORMULARIO RSVP */
+        /* SECCIÓN: FORMULARIO RSVP */
         .rsvp-section {
             background-color: rgba(255, 255, 255, 0.4);
             border: 1px solid var(--gold-light);
@@ -265,7 +266,7 @@
             background-color: #aa8b4c;
         }
 
-        /* SECCIÓN NUEVA: GALERÍA DE FOTOS */
+        /* SECCIÓN OPTIMIZADA: GALERÍA DE FOTOS */
         .gallery-section {
             margin-top: 50px;
             padding-top: 30px;
@@ -275,9 +276,17 @@
         .gallery-section h3 {
             font-family: 'Cinzel', serif;
             color: var(--gold);
-            margin-bottom: 25px;
+            margin-bottom: 10px;
             font-size: 1.4rem;
             letter-spacing: 2px;
+        }
+
+        .gallery-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #7a6e61;
+            margin-bottom: 25px;
         }
 
         .gallery-grid {
@@ -288,7 +297,7 @@
 
         .gallery-item {
             position: relative;
-            padding-bottom: 100%; /* Proporción cuadrada perfecta 1:1 */
+            padding-bottom: 100%;
             background-color: #dfdcd6;
             overflow: hidden;
             border-radius: 2px;
@@ -309,6 +318,68 @@
             transform: scale(1.06);
         }
 
+        /* ESTILOS DEL REPRODUCTOR DE AUDIO ELEGANTE */
+        .music-player-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--bg-paper);
+            border: 1px solid var(--gold);
+            padding: 10px 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .music-player-widget:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(191, 161, 95, 0.3);
+            background-color: var(--white);
+        }
+
+        .music-icon-container {
+            width: 28px;
+            height: 28px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+        }
+
+        .music-icon-container svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .music-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-dark);
+        }
+
+        /* Animación de pulso cuando la música está sonando */
+        .music-player-widget.playing .music-icon-container {
+            animation: pulse-gold 2s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(191, 161, 95, 0.6); }
+            70% { box-shadow: 0 0 0 8px rgba(191, 161, 95, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(191, 161, 95, 0); }
+        }
+
         /* RESPONSIVE PARA MÓVILES */
         @media (max-width: 480px) {
             .parents-container {
@@ -322,12 +393,30 @@
                 padding: 35px 20px;
             }
             .gallery-grid {
-                grid-template-columns: 1fr; /* Una columna en celulares */
+                grid-template-columns: 1fr;
+            }
+            .music-player-widget {
+                bottom: 15px;
+                right: 15px;
+                padding: 8px 14px;
             }
         }
     </style>
 </head>
 <body>
+
+<audio id="weddingAudio" loop>
+    <source src="Sparkle - Your Name. (Kimi no Na wa.) OST [Piano] _ RADWIMPS.mp3" type="audio/mpeg">
+    Tu navegador no soporta elementos de audio.
+</audio>
+
+<div class="music-player-widget" id="musicWidget">
+    <div class="music-icon-container" id="musicIcon">
+        <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="iconPause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </div>
+    <span class="music-text" id="musicTxt">Música: OFF</span>
+</div>
 
 <div class="invitation-card">
     
@@ -411,19 +500,41 @@
     </div>
 
     <div class="gallery-section">
-        <h3>Nuestra Galería</h3>
+        <h3>Nuestra Historia</h3>
+        <p class="gallery-subtitle">"Cada momento a tu lado es mi favorito"</p>
+        
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600" alt="Foto Novios 1">
+                <img src="WhatsApp Image 2026-06-02 at 10.56.22 (1).jpeg" alt="Caminando de la mano">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600" alt="Foto Novios 2">
+                <img src="WhatsApp Image 2026-06-02 at 10.56.22.jpeg" alt="Junto a las puertas de madera">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600" alt="Foto Novios 3">
+                <img src="WhatsApp Image 2026-06-02 at 10.56.21 (1).jpeg" alt="Brindis frente al espejo dorado">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=600" alt="Foto Novios 4">
+                <img src="WhatsApp Image 2026-06-02 at 10.56.21.jpeg" alt="Plano cerrado de nuestro beso">
+            </div>
+
+            <div class="gallery-item">
+                <img src="WhatsApp Image 2026-06-02 at 10.56.19 (3).jpeg" alt="Propuesta de matrimonio de rodillas">
+            </div>
+            <div class="gallery-item">
+                <img src="WhatsApp Image 2026-06-02 at 10.56.19 (1).jpeg" alt="Detalle del ramo de flores y la nota del anillo">
+            </div>
+            <div class="gallery-item">
+                <img src="WhatsApp Image 2026-06-02 at 10.56.20.jpeg" alt="Collage de celebración de nuestro compromiso">
+            </div>
+
+            <div class="gallery-item">
+                <img src="WhatsApp Image 2026-06-02 at 10.56.20 (3).jpeg" alt="Abrazo romántico en el jardín">
+            </div>
+            <div class="gallery-item">
+                <img src="WhatsApp Image 2026-06-02 at 10.56.20 (2).jpeg" alt="Beso con sombrero de vaquero">
+            </div>
+            <div class="gallery-item">
+                <img src="WhatsApp Image 2026-06-02 at 10.56.20 (1).jpeg" alt="Selfie casual compartiendo juntos">
             </div>
         </div>
     </div>
@@ -431,21 +542,41 @@
 </div>
 
 <script>
-    // Sistema dinámico para enviar los datos del formulario a tu WhatsApp
+    // LÓGICA OPTIMIZADA DEL REPRODUCTOR DE AUDIO
+    const audio = document.getElementById('weddingAudio');
+    const widget = document.getElementById('musicWidget');
+    const txt = document.getElementById('musicTxt');
+    const iconPlay = document.getElementById('iconPlay');
+    const iconPause = document.getElementById('iconPause');
+
+    widget.addEventListener('click', function() {
+        if (audio.paused) {
+            // Usamos una promesa para manejar de forma segura las restricciones del navegador
+            audio.play().then(() => {
+                widget.classList.add('playing');
+                txt.innerText = "Música: ON";
+                iconPlay.style.style.display = "none";
+                iconPause.style.display = "block";
+            }).catch(error => {
+                console.log("La reproducción automática fue bloqueada por el navegador: ", error);
+            });
+        } else {
+            audio.pause();
+            widget.classList.remove('playing');
+            txt.innerText = "Música: OFF";
+            iconPlay.style.display = "block";
+            iconPause.style.display = "none";
+        }
+    });
+
+    // SISTEMA RSVP PARA WHATSAPP
     document.getElementById('rsvpForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // ⚠️ CAMBIA ESTE NÚMERO por tu WhatsApp real con código de país (Ej: 52 para México + tu número)
-        const tuNumeroWhatsApp = "8782496720"; 
-        
+        const tuNumeroWhatsApp = "528782496720"; 
         const nombre = document.getElementById('guestName').value;
         const asistencia = document.getElementById('attendance').value;
         const pases = document.getElementById('passes').value;
-        
-        // Estructura del mensaje de texto
         const mensaje = `¡Hola! Confirmo mi asistencia para la Boda de K %26 L:%0A%0A*Nombre:* ${nombre}%0A*Asistencia:* ${asistencia}%0A*Pases solicitados:* ${pases}`;
-        
-        // Abre WhatsApp en una ventana nueva
         window.open(`https://wa.me/${tuNumeroWhatsApp}?text=${mensaje}`, '_blank');
     });
 </script>
